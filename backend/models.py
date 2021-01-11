@@ -2,6 +2,7 @@ import os
 from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
+import sys
 
 database_name = "trivia"
 database_path = "postgres://{}:{}@{}:{}/{}".format('hamedeach','11112013','localhost','5432',database_name)
@@ -38,15 +39,57 @@ class Question(db.Model):
     self.difficulty = difficulty
 
   def insert(self):
-    db.session.add(self)
-    db.session.commit()
-  
+    error =True
+    try:
+      db.session.add(self)
+      db.session.commit()
+      error=False
+    except:
+      db.session.rollback()
+      print(sys.exc_info())
+      error=True
+    finally:
+      db.session.close()
+    
+    if error:
+       print('insert : Failed error exist')
+    else:
+       print('insert: pass')
+    
   def update(self):
-    db.session.commit()
+      error=True
+      try:
+        db.session.commit()
+        error=False
+      except:
+        db.session.rollback()
+        print(sys.exc_info())
+        error=True
+      finally:
+        db.session.close()
+            
+      if error:
+          print('update : failed error exist')
+      else:
+          print('update : pass')
 
   def delete(self):
-    db.session.delete(self)
-    db.session.commit()
+      error=True
+      try:
+         db.session.delete(self)
+         db.session.commit()
+         error=False
+      except:
+         db.session.rollback()
+         print(sys.exc_info())
+         error=True
+      finally:
+         db.session.close()
+            
+      if error:
+        print('delete : failed error exist')
+      else:
+        print('delete : pass')
 
   def format(self):
     return {
