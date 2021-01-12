@@ -4,12 +4,13 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 from flask import abort
 
-#to be compliant with two of the twelve essential rules
-DB_HOST = os.getenv('DB_HOST', '127.0.0.1:5432')  
-DB_USER = os.getenv('DB_USER', 'hamedeach')  
-DB_PASSWORD = os.getenv('DB_PASSWORD', '11112013')  
-DB_NAME = os.getenv('DB_NAME', 'trivia')  
-database_path = 'postgresql+psycopg2://{}:{}@{}/{}'.format(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
+# to be compliant with two of the twelve essential rules
+DB_HOST = os.getenv('DB_HOST', '127.0.0.1:5432')
+DB_USER = os.getenv('DB_USER', 'hamedeach')
+DB_PASSWORD = os.getenv('DB_PASSWORD', '11112013')
+DB_NAME = os.getenv('DB_NAME', 'trivia')
+database_path = 'postgresql+psycopg2://{}:{}@{}/{}'.format(
+    DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
 
 #database_name = "trivia"
 #database_path = "postgres://{}:{}@{}:{}/{}".format('hamedeach','11112013','localhost','5432',database_name)
@@ -19,6 +20,8 @@ db = SQLAlchemy()
 setup_db(app)
     binds a flask application and a SQLAlchemy service
 '''
+
+
 def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -26,103 +29,109 @@ def setup_db(app, database_path=database_path):
     db.init_app(app)
     db.create_all()
 
+
 '''
 Question
 
 '''
-class Question(db.Model):  
-  __tablename__ = 'questions'
 
-  id = Column(Integer, primary_key=True)
-  question = Column(String)
-  answer = Column(String)
-  category = Column(String)
-  difficulty = Column(Integer)
 
-  def __init__(self, question, answer, category, difficulty):
-    self.question = question
-    self.answer = answer
-    self.category = category
-    self.difficulty = difficulty
+class Question(db.Model):
+    __tablename__ = 'questions'
 
-  def insert(self):
-    error =True
-    try:
-      db.session.add(self)
-      db.session.commit()
-      error=False
-    except:
-      db.session.rollback()
-      print(sys.exc_info())
-      error=True
-    finally:
-      db.session.close()
-    
-    if error:
-       print('insert : Failed error exist')
-       abort(422)
-    else:
-       print('insert: pass')
-    
-  def update(self):
-      error=True
-      try:
-        db.session.commit()
-        error=False
-      except:
-        db.session.rollback()
-        print(sys.exc_info())
-        error=True
-      finally:
-        db.session.close()
-            
-      if error:
-          print('update : failed error exist')
-      else:
-          print('update : pass')
+    id = Column(Integer, primary_key=True)
+    question = Column(String)
+    answer = Column(String)
+    category = Column(String)
+    difficulty = Column(Integer)
 
-  def delete(self):
-      error=True
-      try:
-         db.session.delete(self)
-         db.session.commit()
-         error=False
-      except:
-         db.session.rollback()
-         print(sys.exc_info())
-         error=True
-      finally:
-         db.session.close()
-            
-      if error:
-        print('delete : failed error exist')
-      else:
-        print('delete : pass')
+    def __init__(self, question, answer, category, difficulty):
+        self.question = question
+        self.answer = answer
+        self.category = category
+        self.difficulty = difficulty
 
-  def format(self):
-    return {
-      'id': self.id,
-      'question': self.question,
-      'answer': self.answer,
-      'category': self.category,
-      'difficulty': self.difficulty
-    }
+    def insert(self):
+        error = True
+        try:
+            db.session.add(self)
+            db.session.commit()
+            error = False
+        except:
+            db.session.rollback()
+            print(sys.exc_info())
+            error = True
+        finally:
+            db.session.close()
+
+        if error:
+            print('insert : Failed error exist')
+            abort(422)
+        else:
+            print('insert: pass')
+
+    def update(self):
+        error = True
+        try:
+            db.session.commit()
+            error = False
+        except:
+            db.session.rollback()
+            print(sys.exc_info())
+            error = True
+        finally:
+            db.session.close()
+
+        if error:
+            print('update : failed error exist')
+        else:
+            print('update : pass')
+
+    def delete(self):
+        error = True
+        try:
+            db.session.delete(self)
+            db.session.commit()
+            error = False
+        except:
+            db.session.rollback()
+            print(sys.exc_info())
+            error = True
+        finally:
+            db.session.close()
+
+        if error:
+            print('delete : failed error exist')
+        else:
+            print('delete : pass')
+
+    def format(self):
+        return {
+            'id': self.id,
+            'question': self.question,
+            'answer': self.answer,
+            'category': self.category,
+            'difficulty': self.difficulty
+        }
+
 
 '''
 Category
 
 '''
-class Category(db.Model):  
-  __tablename__ = 'categories'
 
-  id = Column(Integer, primary_key=True)
-  type = Column(String)
 
-  def __init__(self, type):
-    self.type = type
+class Category(db.Model):
+    __tablename__ = 'categories'
 
-  def format(self):
-    return {
-      'id': self.id,
-      'type': self.type
-    }
+    id = Column(Integer, primary_key=True)
+    type = Column(String)
+
+    def __init__(self, type):
+        self.type = type
+
+    def format(self):
+        return {
+            'id': self.id,
+            'type': self.type
+        }
