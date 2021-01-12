@@ -2,7 +2,8 @@ import os
 from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
-import sys
+from flask import abort
+
 
 database_name = "trivia"
 database_path = "postgres://{}:{}@{}:{}/{}".format('hamedeach','11112013','localhost','5432',database_name)
@@ -53,6 +54,7 @@ class Question(db.Model):
     
     if error:
        print('insert : Failed error exist')
+       abort(422)
     else:
        print('insert: pass')
     

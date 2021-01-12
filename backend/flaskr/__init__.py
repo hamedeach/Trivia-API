@@ -6,6 +6,7 @@ import random
 
 from models import setup_db, Question, Category
 import random
+import sys
 
 QUESTIONS_PER_PAGE = 10
 
@@ -129,13 +130,11 @@ def create_app(test_config=None):
   '''
   @app.route('/questions/<int:q_id>' , methods=['DELETE'])
   def delete_question(q_id):
+    del_question = Question.query.filter_by(id =  q_id).one_or_none()
+    if del_question is None:
+      print('no question has id = {} to be deleted'.format(q_id))
+      abort(404)
     try:
-      print('of A7 of A7of A7of A7of A7of A7of A7of A7of A7of A7')
-      del_question = Question.query.filter_by(id =  q_id).one_or_none()
-      if del_question is None:
-        print('no question has id = {} to be deleted'.format(q_id))
-        abort(404)
-        
       del_question.delete()  
       return jsonify({
         'success' :True,
@@ -319,7 +318,7 @@ def create_app(test_config=None):
     
     print('start searching for new question .....')
     
-   
+   # loop to get not repeated  random question 
     while (True):
       random_q = random.choice(my_questions)
       if not random_q.id in old_questions:
@@ -328,23 +327,7 @@ def create_app(test_config=None):
       elif  (len(my_questions)<=len(old_questions)):
         new_question=None
         break
-        
       
-      
-      
-    
-    
-    
-       
-    for q_in_lst in my_questions:
-      if not q_in_lst.id in old_questions:
-        new_question = q_in_lst
-        break
-      
-     
-      
-      
-    
     if(new_question is None):
       return jsonify({'success':True})
     else :
@@ -354,20 +337,6 @@ def create_app(test_config=None):
         
       })
     
-      
-      
-      
-        
-          
-
-      
-    
-      
-      
-    
-  
-  
-  
   
 
   '''
