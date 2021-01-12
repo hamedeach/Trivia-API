@@ -130,11 +130,11 @@ class triviaAPI_TestCases(unittest.TestCase):
     
     #test delete question ##########################################
     def test_delete_question(self):
-       my_response = self.client().delete('/questions/32')
+       my_response = self.client().delete('/questions/55')
        response_body = json.loads(my_response.data)
        self.assertEqual(my_response.status_code,200)
        self.assertEqual(response_body['success'],True)
-       self.assertEqual(response_body['deleted'],32)
+       self.assertEqual(response_body['deleted'],55)
      #count = 8 
          
     def test_404_delete_question(self):

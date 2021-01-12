@@ -76,7 +76,10 @@ GET ...
 POST ...
 DELETE ...
 
-GET '/categories'
+
+## API 
+
+##### GET '/categories'
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
 - Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
@@ -87,6 +90,397 @@ GET '/categories'
 '5' : "Entertainment",
 '6' : "Sports"}
 
+url : http://127.0.0.1:5000/categories
+
+sample: 
+{
+  "Total_Categories": 6, 
+  "categories": {
+    "1": "Science", 
+    "2": "Art", 
+    "3": "Geography", 
+    "4": "History", 
+    "5": "Entertainment", 
+    "6": "Sports"
+  }, 
+  "formatted_Categories": [
+    {
+      "id": 1, 
+      "type": "Science"
+    }, 
+    {
+      "id": 2, 
+      "type": "Art"
+    }, 
+    {
+      "id": 3, 
+      "type": "Geography"
+    }, 
+    {
+      "id": 4, 
+      "type": "History"
+    }, 
+    {
+      "id": 5, 
+      "type": "Entertainment"
+    }, 
+    {
+      "id": 6, 
+      "type": "Sports"
+    }
+  ], 
+  "success": true
+}
+
+---------------------------------------------------------
+
+### GET/questions
+
+- return list of all the question stored in the database
+- result ar paginated in a group of 10 question per page
+- Request Arguments: None
+- url : http://127.0.0.1:5000/questions
+- sample :
+
+{
+  "categories": {
+    "1": "Science", 
+    "2": "Art", 
+    "3": "Geography", 
+    "4": "History", 
+    "5": "Entertainment", 
+    "6": "Sports"
+  }, 
+  "questions": [
+    {
+      "answer": "Maya Angelou", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 5, 
+      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+    }, 
+    {
+      "answer": "Muhammad Ali", 
+      "category": 4, 
+      "difficulty": 1, 
+      "id": 9, 
+      "question": "What boxer's original name is Cassius Clay?"
+    }, 
+    {
+      "answer": "Apollo 13", 
+      "category": 5, 
+      "difficulty": 4, 
+      "id": 2, 
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    }, 
+    {
+      "answer": "Tom Cruise", 
+      "category": 5, 
+      "difficulty": 4, 
+      "id": 4, 
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    }, 
+    {
+      "answer": "Edward Scissorhands", 
+      "category": 5, 
+      "difficulty": 3, 
+      "id": 6, 
+      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+    }, 
+    {
+      "answer": "Brazil", 
+      "category": 6, 
+      "difficulty": 3, 
+      "id": 10, 
+      "question": "Which is the only team to play in every soccer World Cup tournament?"
+    }, 
+    {
+      "answer": "Uruguay", 
+      "category": 6, 
+      "difficulty": 4, 
+      "id": 11, 
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    }, 
+    {
+      "answer": "George Washington Carver", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 12, 
+      "question": "Who invented Peanut Butter?"
+    }, 
+    {
+      "answer": "Lake Victoria", 
+      "category": 3, 
+      "difficulty": 2, 
+      "id": 13, 
+      "question": "What is the largest lake in Africa?"
+    }, 
+    {
+      "answer": "The Palace of Versailles", 
+      "category": 3, 
+      "difficulty": 3, 
+      "id": 14, 
+      "question": "In which royal palace would you find the Hall of Mirrors?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 78
+}
+
+----------------------------------------------------
+
+### DELETE question  /questions/<int:q_id>
+
+- used to delete specific question by id
+- url :http://127.0.0.1:5000/questions/6
+- sample :
+    {
+        'success' :True,
+        'deleted' : 6
+    }
+
+
+----------------------------------------------------------
+
+### post a new question  POST/questions
+- use to add anew question in the database
+- url : http://127.0.0.1:5000/questions
+
+request body
+{
+     "question" :  "test question"   ,
+     "answer"   :  "test answer"    ,
+     "difficulty" :  1                   ,
+     "category"  :  "5"
+}
+
+
+-sample
+{
+  "created": "test question", 
+  "question_created": "test question", 
+  "questions": [
+    {
+      "answer": "Apollo 13", 
+      "category": 5, 
+      "difficulty": 4, 
+      "id": 2, 
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    }, 
+    {
+      "answer": "Tom Cruise", 
+      "category": 5, 
+      "difficulty": 4, 
+      "id": 4, 
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    }, 
+    {
+      "answer": "Maya Angelou", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 5, 
+      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+    }, 
+    {
+      "answer": "Edward Scissorhands", 
+      "category": 5, 
+      "difficulty": 3, 
+      "id": 6, 
+      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+    }, 
+    {
+      "answer": "Muhammad Ali", 
+      "category": 4, 
+      "difficulty": 1, 
+      "id": 9, 
+      "question": "What boxer's original name is Cassius Clay?"
+    }, 
+    {
+      "answer": "Brazil", 
+      "category": 6, 
+      "difficulty": 3, 
+      "id": 10, 
+      "question": "Which is the only team to play in every soccer World Cup tournament?"
+    }, 
+    {
+      "answer": "Uruguay", 
+      "category": 6, 
+      "difficulty": 4, 
+      "id": 11, 
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    }, 
+    {
+      "answer": "George Washington Carver", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 12, 
+      "question": "Who invented Peanut Butter?"
+    }, 
+    {
+      "answer": "Lake Victoria", 
+      "category": 3, 
+      "difficulty": 2, 
+      "id": 13, 
+      "question": "What is the largest lake in Africa?"
+    }, 
+    {
+      "answer": "The Palace of Versailles", 
+      "category": 3, 
+      "difficulty": 3, 
+      "id": 14, 
+      "question": "In which royal palace would you find the Hall of Mirrors?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 79
+}
+
+
+
+---------------------------------------------------------
+
+### search for a question   POST/likequestions
+- used to search for a question by search term in JSON request parameters
+- url : http://127.0.0.1:5000/likequestions
+
+-sample :
+request body :
+{"searchTerm": "Clay"}
+
+
+{
+  "questions": [
+    {
+      "answer": "Muhammad Ali", 
+      "category": 4, 
+      "difficulty": 1, 
+      "id": 9, 
+      "question": "What boxer's original name is Cassius Clay?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 1
+}
+
+
+----------------------------------------------------------
+
+
+
+##### get category questions  GET/categories/<int:cat_id>/questions
+- used to get all the question under specific category by the id passed as reguest parameter 
+- return paginated question (10/page) for the selected category 
+-url :http://127.0.0.1:5000/categories/1/questions
+-sample :
+{
+  "current_category": "Science", 
+  "questions": [
+    {
+      "answer": "The Liver", 
+      "category": 1, 
+      "difficulty": 4, 
+      "id": 20, 
+      "question": "What is the heaviest organ in the human body?"
+    }, 
+    {
+      "answer": "Alexander Fleming", 
+      "category": 1, 
+      "difficulty": 3, 
+      "id": 21, 
+      "question": "Who discovered penicillin?"
+    }, 
+    {
+      "answer": "Blood", 
+      "category": 1, 
+      "difficulty": 4, 
+      "id": 22, 
+      "question": "Hematology is a branch of medicine involving the study of what?"
+    }, 
+    {
+      "answer": "to stretch her legs", 
+      "category": 1, 
+      "difficulty": 5, 
+      "id": 26, 
+      "question": "Why do the chicken cross the road ?"
+    }, 
+    {
+      "answer": "to stretch her legs", 
+      "category": 1, 
+      "difficulty": 5, 
+      "id": 27, 
+      "question": "Why do the chicken cross the road ?"
+    }, 
+    {
+      "answer": "to stretch her legs", 
+      "category": 1, 
+      "difficulty": 5, 
+      "id": 29, 
+      "question": "Why do the chicken cross the road ?"
+    }, 
+    {
+      "answer": "to stretch her legs", 
+      "category": 1, 
+      "difficulty": 5, 
+      "id": 33, 
+      "question": "Why do the chicken cross the road ?"
+    }, 
+    {
+      "answer": "to stretch her legs", 
+      "category": 1, 
+      "difficulty": 5, 
+      "id": 34, 
+      "question": "Why do the chicken cross the road ?"
+    }, 
+    {
+      "answer": "to stretch her legs", 
+      "category": 1, 
+      "difficulty": 5, 
+      "id": 35, 
+      "question": "Why do the chicken cross the road ?"
+    }, 
+    {
+      "answer": "to stretch her legs", 
+      "category": 1, 
+      "difficulty": 5, 
+      "id": 36, 
+      "question": "Why do the chicken cross the road ?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 10
+}
+------------------------------------------------------------------
+
+## ERRORs Handling
+
+- 400  - bad request 
+- sample :
+        {
+            'success' : False,
+            'error': 400,
+            'message' :'Bad Request'
+       }
+
+----------------------------------
+- 422 - unprocessable
+- Sample :
+        {
+            "success": False,
+            "error": 422,
+            "message": "unprocessable"
+        }
+
+----------------------------------------
+
+- 404 - not found
+- sample :
+        {
+            "success": False,
+            "error": 404,
+            "message": "resource not found"
+        }
+
+
 ```
 
 
@@ -96,5 +490,5 @@ To run the tests, run
 dropdb trivia_test
 createdb trivia_test
 psql trivia_test < trivia.psql
-python test_flaskr.py
+python app_unittest.py
 ```

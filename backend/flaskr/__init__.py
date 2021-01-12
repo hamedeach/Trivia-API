@@ -114,12 +114,6 @@ def create_app(test_config=None):
             'categories': categories_type_dict
      })
     
-    
-  
-  
-  
-  
-  
 
   '''
   @TODO: 
