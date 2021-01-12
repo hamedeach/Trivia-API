@@ -4,9 +4,15 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 from flask import abort
 
+#to be compliant with two of the twelve essential rules
+DB_HOST = os.getenv('DB_HOST', '127.0.0.1:5432')  
+DB_USER = os.getenv('DB_USER', 'hamedeach')  
+DB_PASSWORD = os.getenv('DB_PASSWORD', '11112013')  
+DB_NAME = os.getenv('DB_NAME', 'trivia')  
+database_path = 'postgresql+psycopg2://{}:{}@{}/{}'.format(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
 
-database_name = "trivia"
-database_path = "postgres://{}:{}@{}:{}/{}".format('hamedeach','11112013','localhost','5432',database_name)
+#database_name = "trivia"
+#database_path = "postgres://{}:{}@{}:{}/{}".format('hamedeach','11112013','localhost','5432',database_name)
 db = SQLAlchemy()
 
 '''

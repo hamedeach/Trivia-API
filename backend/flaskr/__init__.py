@@ -128,14 +128,14 @@ def create_app(test_config=None):
     if del_question is None:
       print('no question has id = {} to be deleted'.format(q_id))
       abort(404)
-    try:
-      del_question.delete()  
-      return jsonify({
+      
+   
+    del_question.delete()  
+    return jsonify({
         'success' :True,
         'deleted' : q_id
-      })
-    except:
-      abort(422)
+         })
+   
   
 
   '''
@@ -217,7 +217,7 @@ def create_app(test_config=None):
       abort(400)
     
     serach_term = req_body['searchTerm']  
-    search_results = Question.query.filter(Question.question.like('%'+serach_term+'%')).all()
+    search_results = Question.query.filter(Question.question.ilike('%'+serach_term+'%')).all()
     res_length = len(search_results)
     print('####################################################################################################')
     print(res_length)
